@@ -56,5 +56,6 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="AIBegins" layoutX="461.0" layoutY="376.0" mnemonicParsing="false" onAction="#setWhoBegins" text="AI begins" toggleGroup="$whoBegins" />
+      <Button fx:id="menu" layoutX="352.0" layoutY="343.0" mnemonicParsing="false" onAction="#switchToMenu" text="Menu" />
    </children>
 </Pane>

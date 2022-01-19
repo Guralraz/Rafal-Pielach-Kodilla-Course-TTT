@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,8 +15,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("controllersp.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("controllermenu.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            Image icon = new Image("![](../../../../resources/com/example/tictactoe/TTT_Project_icon.png)");
+            stage.getIcons().add(icon);
             stage.setTitle("TicTacToe");
             stage.setScene(scene);
             stage.show();
