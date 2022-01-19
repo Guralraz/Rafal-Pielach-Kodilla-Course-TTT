@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("controllermenu.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            Image icon = new Image("![](../../../../resources/com/example/tictactoe/TTT_Project_icon.png)");
+            Image icon = new Image(new File("TTT_Project_icon.png").toURI().toString());
             stage.getIcons().add(icon);
             stage.setTitle("TicTacToe");
             stage.setScene(scene);
