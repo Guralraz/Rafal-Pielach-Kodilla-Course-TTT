@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 import java.net.URL;
 import java.util.*;
 
-public class Controller implements Initializable {
+public class ControllerSinglePlayer implements Initializable {
     @FXML
     private Button button1;
 
@@ -46,13 +46,12 @@ public class Controller implements Initializable {
     @FXML
     private Button reset;
 
+    @FXML
+    private CheckBox levelCb;
+
     private int turn;
 
     ArrayList<Button> buttonsList;
-
-    private boolean xWon = false;
-
-    private boolean oWon = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,7 +59,7 @@ public class Controller implements Initializable {
 
         buttonsList.forEach(button -> {
             button.setFocusTraversable(false);
-            button.setStyle("-fx-background-color: #87ceeb");
+            button.setStyle("-fx-background-color: skyblue");
         });
 
         Random randomGenerator = new Random();
@@ -71,7 +70,7 @@ public class Controller implements Initializable {
     public void onButton1Click() {
         if (turn == 0) {
             button1.setText("X");
-            button1.setStyle("-fx-background-color: #000000");
+            button1.setStyle("-fx-background-color: black");
             turn = 1;
             System.out.println("X move");
         } else {
@@ -239,7 +238,6 @@ public class Controller implements Initializable {
                 (button1.getText() == "X" && button4.getText() == "X" && button7.getText() == "X") ||
                 (button3.getText() == "X" && button6.getText() == "X" && button9.getText() == "X")) {
             buttonsList.forEach(button -> button.setDisable(true));
-            xWon = true;
             System.out.println("Player X won");
         } else if ((button1.getText() == "O" && button2.getText() == "O" && button3.getText() == "O") ||
                 (button4.getText() == "O" && button5.getText() == "O" && button6.getText() == "O") ||
@@ -249,43 +247,39 @@ public class Controller implements Initializable {
                 (button3.getText() == "O" && button5.getText() == "O" && button7.getText() == "O") ||
                 (button1.getText() == "O" && button4.getText() == "O" && button7.getText() == "O") ||
                 (button3.getText() == "O" && button6.getText() == "O" && button9.getText() == "O")) {
-            buttonsList.forEach(button -> button.setDisable(true));
-            oWon = true;
             System.out.println("Player O won");
-        } else if (button1.isDisabled() == true && button2.isDisabled() == true && button3.isDisabled() == true &&
-                button4.isDisabled() == true && button5.isDisabled() == true && button6.isDisabled() == true &&
-                button7.isDisabled() == true && button8.isDisabled() == true && button9.isDisabled() == true &&
-                xWon == false && oWon == false) {
-            System.out.println("Tie");
+            buttonsList.forEach(button -> button.setDisable(true));
         }
     }
 
     public void onResetButtonClick() {
-        clearList();
-        populateList();
-        buttonsList.forEach(button -> {
-            button.setText("");
-            button.setDisable(false);
-            button.setStyle("-fx-background-color: skyblue");
-        });
-    }
-
-    public void clearList() {
-        for (Button button : buttonsList) {
-            buttonsList.remove(button);
-        }
-    }
-
-    public void populateList() {
-        buttonsList.add(button1);
-        buttonsList.add(button2);
-        buttonsList.add(button3);
-        buttonsList.add(button4);
-        buttonsList.add(button5);
-        buttonsList.add(button6);
-        buttonsList.add(button7);
-        buttonsList.add(button8);
-        buttonsList.add(button9);
+        button1.setText("");
+        button1.setDisable(false);
+        button1.setStyle("-fx-background-color: skyblue");
+        button2.setText("");
+        button2.setDisable(false);
+        button2.setStyle("-fx-background-color: skyblue");
+        button3.setText("");
+        button3.setDisable(false);
+        button3.setStyle("-fx-background-color: skyblue");
+        button4.setText("");
+        button4.setDisable(false);
+        button4.setStyle("-fx-background-color: skyblue");
+        button5.setText("");
+        button5.setDisable(false);
+        button5.setStyle("-fx-background-color: skyblue");
+        button6.setText("");
+        button6.setDisable(false);
+        button6.setStyle("-fx-background-color: skyblue");
+        button7.setText("");
+        button7.setDisable(false);
+        button7.setStyle("-fx-background-color: skyblue");
+        button8.setText("");
+        button8.setDisable(false);
+        button8.setStyle("-fx-background-color: skyblue");
+        button9.setText("");
+        button9.setDisable(false);
+        button9.setStyle("-fx-background-color: skyblue");
     }
 
 }
