@@ -3,14 +3,10 @@ package com.example.tictactoe;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
     @Override
@@ -18,7 +14,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("controllermenu.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            Image icon = new Image(new File("TTT_Project_icon.png").toURI().toString());
+            Image icon = new Image(getClass().getResourceAsStream("TTT_Project_icon.png"));
             stage.getIcons().add(icon);
             stage.setTitle("TicTacToe");
             stage.setScene(scene);
