@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -15,7 +16,11 @@ import javafx.scene.paint.Color;
 import java.net.URL;
 import java.util.*;
 
-public class Controller implements Initializable {
+public class ControllerMultiPlayer implements Initializable {
+
+    @FXML
+    private TextField textField;
+
     @FXML
     private Button button1;
 
@@ -65,6 +70,16 @@ public class Controller implements Initializable {
 
         Random randomGenerator = new Random();
         turn = randomGenerator.nextInt(2);
+        setTurnInfo();
+    }
+
+    public void setTurnInfo() {
+        textField.setStyle("-fx-font-color: red");
+        if (turn == 0) {
+            textField.setText("Player X's turn");
+        } else {
+            textField.setText("Player O's turn");
+        }
     }
 
     @FXML
@@ -83,6 +98,7 @@ public class Controller implements Initializable {
         button1.setDisable(true);
         buttonsList.remove(button1);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -101,6 +117,7 @@ public class Controller implements Initializable {
         button2.setDisable(true);
         buttonsList.remove(button2);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -119,6 +136,7 @@ public class Controller implements Initializable {
         button3.setDisable(true);
         buttonsList.remove(button3);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -137,6 +155,7 @@ public class Controller implements Initializable {
         button4.setDisable(true);
         buttonsList.remove(button4);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -155,6 +174,7 @@ public class Controller implements Initializable {
         button5.setDisable(true);
         buttonsList.remove(button5);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -173,6 +193,7 @@ public class Controller implements Initializable {
         button6.setDisable(true);
         buttonsList.remove(button6);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -191,6 +212,7 @@ public class Controller implements Initializable {
         button7.setDisable(true);
         buttonsList.remove(button7);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -209,6 +231,7 @@ public class Controller implements Initializable {
         button8.setDisable(true);
         buttonsList.remove(button8);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     @FXML
@@ -227,6 +250,7 @@ public class Controller implements Initializable {
         button9.setDisable(true);
         buttonsList.remove(button9);
         checkVictoryCondition();
+        setTurnInfo();
     }
 
     public void checkVictoryCondition() {
