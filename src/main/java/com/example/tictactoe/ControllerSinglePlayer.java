@@ -1,21 +1,19 @@
 package com.example.tictactoe;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
+import javafx.scene.control.RadioButton;
 
 import java.net.URL;
 import java.util.*;
 
 public class ControllerSinglePlayer implements Initializable {
+
+    @FXML
+    private Label textField;
+
     @FXML
     private Button button1;
 
@@ -47,23 +45,36 @@ public class ControllerSinglePlayer implements Initializable {
     private Button reset;
 
     @FXML
-    private CheckBox levelCb;
+    private RadioButton playerBegins, AIBegins;
+
+    private boolean AITurn;
 
     private int turn;
 
     ArrayList<Button> buttonsList;
 
+    private boolean xWon = false;
+
+    private boolean oWon = false;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buttonsList = new ArrayList<>(Arrays.asList(button1, button2, button3, button4, button5, button6, button7, button8, button9));
-
         buttonsList.forEach(button -> {
             button.setFocusTraversable(false);
             button.setStyle("-fx-background-color: skyblue");
         });
+        textField.setStyle("-fx-progress-color: red");
+        assignTurn();
+        setTurnInfo();
+    }
 
-        Random randomGenerator = new Random();
-        turn = randomGenerator.nextInt(2);
+    public void setTurnInfo() {
+        if (turn == 0) {
+            textField.setText("Player X's turn");
+        } else {
+            textField.setText("Player O's turn");
+        }
     }
 
     @FXML
@@ -81,7 +92,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button1.setDisable(true);
         buttonsList.remove(button1);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -99,7 +113,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button2.setDisable(true);
         buttonsList.remove(button2);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -117,7 +134,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button3.setDisable(true);
         buttonsList.remove(button3);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -135,7 +155,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button4.setDisable(true);
         buttonsList.remove(button4);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -153,7 +176,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button5.setDisable(true);
         buttonsList.remove(button5);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -171,7 +197,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button6.setDisable(true);
         buttonsList.remove(button6);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -189,7 +218,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button7.setDisable(true);
         buttonsList.remove(button7);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -207,7 +239,10 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button8.setDisable(true);
         buttonsList.remove(button8);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     @FXML
@@ -225,61 +260,111 @@ public class ControllerSinglePlayer implements Initializable {
         }
         button9.setDisable(true);
         buttonsList.remove(button9);
+        setTurnInfo();
         checkVictoryCondition();
+        checkWhoseTurn();
+        AIMove();
     }
 
     public void checkVictoryCondition() {
-        if ((button1.getText() == "X" && button2.getText() == "X" && button3.getText() == "X") ||
-                (button4.getText() == "X" && button5.getText() == "X" && button6.getText() == "X") ||
-                (button7.getText() == "X" && button8.getText() == "X" && button9.getText() == "X") ||
-                (button1.getText() == "X" && button5.getText() == "X" && button9.getText() == "X") ||
-                (button2.getText() == "X" && button5.getText() == "X" && button8.getText() == "X") ||
-                (button3.getText() == "X" && button5.getText() == "X" && button7.getText() == "X") ||
-                (button1.getText() == "X" && button4.getText() == "X" && button7.getText() == "X") ||
-                (button3.getText() == "X" && button6.getText() == "X" && button9.getText() == "X")) {
+        if ((button1.getText().equals("X") && button2.getText().equals("X") && button3.getText().equals("X")) ||
+                (button4.getText().equals("X") && button5.getText().equals("X") && button6.getText().equals("X")) ||
+                (button7.getText().equals("X") && button8.getText().equals("X") && button9.getText().equals("X")) ||
+                (button1.getText().equals("X") && button5.getText().equals("X") && button9.getText().equals("X")) ||
+                (button2.getText().equals("X") && button5.getText().equals("X") && button8.getText().equals("X")) ||
+                (button3.getText().equals("X") && button5.getText().equals("X") && button7.getText().equals("X")) ||
+                (button1.getText().equals("X") && button4.getText().equals("X") && button7.getText().equals("X")) ||
+                (button3.getText().equals("X") && button6.getText().equals("X") && button9.getText().equals("X"))) {
             buttonsList.forEach(button -> button.setDisable(true));
+            xWon = true;
+            textField.setText("Player X won!");
             System.out.println("Player X won");
-        } else if ((button1.getText() == "O" && button2.getText() == "O" && button3.getText() == "O") ||
-                (button4.getText() == "O" && button5.getText() == "O" && button6.getText() == "O") ||
-                (button7.getText() == "O" && button8.getText() == "O" && button9.getText() == "O") ||
-                (button1.getText() == "O" && button5.getText() == "O" && button9.getText() == "O") ||
-                (button2.getText() == "O" && button5.getText() == "O" && button8.getText() == "O") ||
-                (button3.getText() == "O" && button5.getText() == "O" && button7.getText() == "O") ||
-                (button1.getText() == "O" && button4.getText() == "O" && button7.getText() == "O") ||
-                (button3.getText() == "O" && button6.getText() == "O" && button9.getText() == "O")) {
-            System.out.println("Player O won");
+        } else if ((button1.getText().equals("O") && button2.getText().equals("O") && button3.getText().equals("O")) ||
+                (button4.getText().equals("O") && button5.getText().equals("O") && button6.getText().equals("O")) ||
+                (button7.getText().equals("O") && button8.getText().equals("O") && button9.getText().equals("O")) ||
+                (button1.getText().equals("O") && button5.getText().equals("O") && button9.getText().equals("O")) ||
+                (button2.getText().equals("O") && button5.getText().equals("O") && button8.getText().equals("O")) ||
+                (button3.getText().equals("O") && button5.getText().equals("O") && button7.getText().equals("O")) ||
+                (button1.getText().equals("O") && button4.getText().equals("O") && button7.getText().equals("O")) ||
+                (button3.getText().equals("O") && button6.getText().equals("O") && button9.getText().equals("O"))) {
             buttonsList.forEach(button -> button.setDisable(true));
+            oWon = true;
+            textField.setText("Player O won!");
+            System.out.println("Player O won");
+        } else if (button1.isDisabled() && button2.isDisabled() && button3.isDisabled() &&
+                button4.isDisabled() && button5.isDisabled() && button6.isDisabled() &&
+                button7.isDisabled() && button8.isDisabled() && button9.isDisabled() &&
+                !xWon && !oWon) {
+            textField.setText("Tie!");
+            System.out.println("Tie");
         }
     }
 
     public void onResetButtonClick() {
-        button1.setText("");
-        button1.setDisable(false);
-        button1.setStyle("-fx-background-color: skyblue");
-        button2.setText("");
-        button2.setDisable(false);
-        button2.setStyle("-fx-background-color: skyblue");
-        button3.setText("");
-        button3.setDisable(false);
-        button3.setStyle("-fx-background-color: skyblue");
-        button4.setText("");
-        button4.setDisable(false);
-        button4.setStyle("-fx-background-color: skyblue");
-        button5.setText("");
-        button5.setDisable(false);
-        button5.setStyle("-fx-background-color: skyblue");
-        button6.setText("");
-        button6.setDisable(false);
-        button6.setStyle("-fx-background-color: skyblue");
-        button7.setText("");
-        button7.setDisable(false);
-        button7.setStyle("-fx-background-color: skyblue");
-        button8.setText("");
-        button8.setDisable(false);
-        button8.setStyle("-fx-background-color: skyblue");
-        button9.setText("");
-        button9.setDisable(false);
-        button9.setStyle("-fx-background-color: skyblue");
+        try {
+            assignTurn();
+            setTurnInfo();
+            clearList();
+            populateList();
+            buttonsList.forEach(button -> {
+                button.setText("");
+                button.setDisable(false);
+                button.setStyle("-fx-background-color: skyblue");
+            });
+            setWhoBegins();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void clearList() {
+        for (Button button : buttonsList) {
+            buttonsList.remove(button);
+        }
+    }
+
+    public void populateList() {
+        buttonsList.add(button1);
+        buttonsList.add(button2);
+        buttonsList.add(button3);
+        buttonsList.add(button4);
+        buttonsList.add(button5);
+        buttonsList.add(button6);
+        buttonsList.add(button7);
+        buttonsList.add(button8);
+        buttonsList.add(button9);
+    }
+
+    public void assignTurn() {
+        Random randomGenerator = new Random();
+        turn = randomGenerator.nextInt(2);
+    }
+
+    public void AIMove() {
+        if (AITurn) {
+            Random randomGenerator = new Random();
+            int buttonIndexNo = randomGenerator.nextInt(buttonsList.size());
+            buttonsList.get(buttonIndexNo).fire();
+        }
+    }
+
+    public void checkWhoseTurn() {
+        if (!AITurn) {
+            AITurn = true;
+        } else {
+            AITurn = false;
+        }
+    }
+
+    public void setWhoBegins() {
+        if (playerBegins.isSelected()) {
+            AITurn = false;
+            System.out.println(AITurn);
+        } else if (AIBegins.isSelected()) {
+            AITurn = true;
+            System.out.println(AITurn);
+            AIMove();
+        }
     }
 
 }
