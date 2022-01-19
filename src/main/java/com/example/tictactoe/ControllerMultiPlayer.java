@@ -1,17 +1,11 @@
 package com.example.tictactoe;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.*;
@@ -19,7 +13,7 @@ import java.util.*;
 public class ControllerMultiPlayer implements Initializable {
 
     @FXML
-    private TextField textField;
+    private Label textField;
 
     @FXML
     private Button button1;
@@ -68,13 +62,15 @@ public class ControllerMultiPlayer implements Initializable {
             button.setStyle("-fx-background-color: #87ceeb");
         });
 
+        textField.setStyle("-fx-font-color: red");
+
         Random randomGenerator = new Random();
         turn = randomGenerator.nextInt(2);
+
         setTurnInfo();
     }
 
     public void setTurnInfo() {
-        textField.setStyle("-fx-font-color: red");
         if (turn == 0) {
             textField.setText("Player X's turn");
         } else {
@@ -97,8 +93,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button1.setDisable(true);
         buttonsList.remove(button1);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -116,8 +112,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button2.setDisable(true);
         buttonsList.remove(button2);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -135,8 +131,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button3.setDisable(true);
         buttonsList.remove(button3);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -154,8 +150,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button4.setDisable(true);
         buttonsList.remove(button4);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -173,8 +169,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button5.setDisable(true);
         buttonsList.remove(button5);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -192,8 +188,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button6.setDisable(true);
         buttonsList.remove(button6);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -211,8 +207,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button7.setDisable(true);
         buttonsList.remove(button7);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -230,8 +226,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button8.setDisable(true);
         buttonsList.remove(button8);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     @FXML
@@ -249,8 +245,8 @@ public class ControllerMultiPlayer implements Initializable {
         }
         button9.setDisable(true);
         buttonsList.remove(button9);
-        checkVictoryCondition();
         setTurnInfo();
+        checkVictoryCondition();
     }
 
     public void checkVictoryCondition() {
@@ -264,6 +260,7 @@ public class ControllerMultiPlayer implements Initializable {
                 (button3.getText() == "X" && button6.getText() == "X" && button9.getText() == "X")) {
             buttonsList.forEach(button -> button.setDisable(true));
             xWon = true;
+            textField.setText("Player X won!");
             System.out.println("Player X won");
         } else if ((button1.getText() == "O" && button2.getText() == "O" && button3.getText() == "O") ||
                 (button4.getText() == "O" && button5.getText() == "O" && button6.getText() == "O") ||
@@ -275,16 +272,21 @@ public class ControllerMultiPlayer implements Initializable {
                 (button3.getText() == "O" && button6.getText() == "O" && button9.getText() == "O")) {
             buttonsList.forEach(button -> button.setDisable(true));
             oWon = true;
+            textField.setText("Player O won!");
             System.out.println("Player O won");
         } else if (button1.isDisabled() == true && button2.isDisabled() == true && button3.isDisabled() == true &&
                 button4.isDisabled() == true && button5.isDisabled() == true && button6.isDisabled() == true &&
                 button7.isDisabled() == true && button8.isDisabled() == true && button9.isDisabled() == true &&
                 xWon == false && oWon == false) {
+            textField.setText("Tie!");
             System.out.println("Tie");
         }
     }
 
     public void onResetButtonClick() {
+        Random randomGenerator = new Random();
+        turn = randomGenerator.nextInt(2);
+        setTurnInfo();
         clearList();
         populateList();
         buttonsList.forEach(button -> {
