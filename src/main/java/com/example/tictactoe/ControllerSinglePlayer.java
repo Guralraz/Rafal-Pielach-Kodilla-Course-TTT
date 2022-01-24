@@ -1,6 +1,7 @@
 package com.example.tictactoe;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -96,20 +97,21 @@ public class ControllerSinglePlayer implements Initializable {
     }
 
     @FXML
-    public void onButton1Click() {
+    public void onButton1Click(Event event) {
+        Button clickedButton = (Button) event.getSource();
         if (turn == 0) {
-            button1.setText("X");
-            button1.setStyle("-fx-background-color: black");
+            clickedButton.setText("X");
+            clickedButton.setStyle("-fx-background-color: black");
             turn = 1;
             System.out.println("X move");
         } else {
-            button1.setText("O");
-            button1.setStyle("-fx-background-color: white");
+            clickedButton.setText("O");
+            clickedButton.setStyle("-fx-background-color: white");
             turn = 0;
             System.out.println("O move");
         }
-        button1.setDisable(true);
-        buttonsList.remove(button1);
+        clickedButton.setDisable(true);
+        buttonsList.remove(clickedButton);
         setTurnInfo();
         checkVictoryCondition();
         checkWhoseTurn();
@@ -330,15 +332,16 @@ public class ControllerSinglePlayer implements Initializable {
                 button.setStyle("-fx-background-color: skyblue");
             });
             setWhoBegins();
+            xWon = false;
+            oWon = false;
+            enableTurnOptions();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
     public void clearList() {
-        for (Button button : buttonsList) {
-            buttonsList.remove(button);
-        }
+        buttonsList.clear();
     }
 
     public void populateList() {
@@ -383,6 +386,16 @@ public class ControllerSinglePlayer implements Initializable {
             System.out.println(AITurn);
             AIMove();
         }
+    }
+
+    private void disableTurnOptions() {
+        playerBegins.setDisable(true);
+        AIBegins.setDisable(true);
+    }
+
+    private void enableTurnOptions() {
+        playerBegins.setDisable(false);
+        AIBegins.setDisable(false);
     }
 
 }
