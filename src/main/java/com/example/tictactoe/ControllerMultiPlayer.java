@@ -2,6 +2,7 @@ package com.example.tictactoe;
 
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -92,172 +93,21 @@ public class ControllerMultiPlayer implements Initializable {
     }
 
     @FXML
-    public void onButton1Click() {
+    public void onButtonClick(Event event) {
+        Button clickedButton = (Button) event.getSource();
         if (turn == 0) {
-            button1.setText("X");
-            button1.setStyle("-fx-background-color: black");
+            clickedButton.setText("X");
+            clickedButton.setStyle("-fx-background-color: black");
             turn = 1;
             System.out.println("X move");
         } else {
-            button1.setText("O");
-            button1.setStyle("-fx-background-color: white");
+            clickedButton.setText("O");
+            clickedButton.setStyle("-fx-background-color: white");
             turn = 0;
             System.out.println("O move");
         }
-        button1.setDisable(true);
-        buttonsList.remove(button1);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton2Click() {
-        if (turn == 0) {
-            button2.setText("X");
-            button2.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button2.setText("O");
-            button2.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button2.setDisable(true);
-        buttonsList.remove(button2);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton3Click() {
-        if (turn == 0) {
-            button3.setText("X");
-            button3.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button3.setText("O");
-            button3.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button3.setDisable(true);
-        buttonsList.remove(button3);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton4Click() {
-        if (turn == 0) {
-            button4.setText("X");
-            button4.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button4.setText("O");
-            button4.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button4.setDisable(true);
-        buttonsList.remove(button4);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton5Click() {
-        if (turn == 0) {
-            button5.setText("X");
-            button5.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button5.setText("O");
-            button5.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button5.setDisable(true);
-        buttonsList.remove(button5);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton6Click() {
-        if (turn == 0) {
-            button6.setText("X");
-            button6.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button6.setText("O");
-            button6.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button6.setDisable(true);
-        buttonsList.remove(button6);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton7Click() {
-        if (turn == 0) {
-            button7.setText("X");
-            button7.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button7.setText("O");
-            button7.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button7.setDisable(true);
-        buttonsList.remove(button7);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton8Click() {
-        if (turn == 0) {
-            button8.setText("X");
-            button8.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button8.setText("O");
-            button8.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button8.setDisable(true);
-        buttonsList.remove(button8);
-        setTurnInfo();
-        checkVictoryCondition();
-    }
-
-    @FXML
-    public void onButton9Click() {
-        if (turn == 0) {
-            button9.setText("X");
-            button9.setStyle("-fx-background-color: black");
-            turn = 1;
-            System.out.println("X move");
-        } else {
-            button9.setText("O");
-            button9.setStyle("-fx-background-color: white");
-            turn = 0;
-            System.out.println("O move");
-        }
-        button9.setDisable(true);
-        buttonsList.remove(button9);
+        clickedButton.setDisable(true);
+        buttonsList.remove(clickedButton);
         setTurnInfo();
         checkVictoryCondition();
     }
@@ -313,9 +163,7 @@ public class ControllerMultiPlayer implements Initializable {
     }
 
     public void clearList() {
-        for (Button button : buttonsList) {
-            buttonsList.remove(button);
-        }
+        buttonsList.clear();
     }
 
     public void populateList() {
