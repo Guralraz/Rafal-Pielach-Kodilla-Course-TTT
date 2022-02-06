@@ -52,11 +52,7 @@ public class ControllerSinglePlayer implements Initializable {
 
     private boolean startTimer = true;
 
-    private long timerStart;
-
-    private long timerStop;
-
-    private long totalPlayTime;
+    private long timerStart, timerStop, totalPlayTime;
 
     private String highScore;
 
